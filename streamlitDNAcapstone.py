@@ -10,7 +10,7 @@ with left_column:
     st.write(f"You think the owner of this DNA has a {chosen} feature.") 
 
 with right_column:
-    chosen=st.sidebar.slider("Select probability that your guess is right",(0,100,50))
+    chosen=st.sidebar.slider("Select probability that your guess is right",(0,100))
     st.write(f"You are {chosen}% sure of your guess...")
     chosen=st.sidebar.selectbox("Would you like to verify guess?",["Yes","No"])
     if chosen=="Yes":

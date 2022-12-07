@@ -18,7 +18,7 @@ with right_column:
         #st.write("Please click on this button.") #to view code - st.code(get_file_content_as_string("streamlit_app.py"))
         st.write("Please upload DNA on feature of interest. File must be of .txt or .csv type")
         uploaded_DNA=st.file_uploader("uploaded_file")
-        dataDNAup=pd.read_csv(uploaded_DNA)
-        st.write(dataDNAup)
+        #dataDNAup=pd.read_csv(uploaded_DNA)
+        #st.write(dataDNAup)
     elif chosen=="No":
         st.write("Not so sure...would you like to reenter a guess?")

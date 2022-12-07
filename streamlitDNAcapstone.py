@@ -1,5 +1,6 @@
 #sample streamlit file
 import streamlit as st
+import pandas as pd
 st.markdown('# Verify ID with DNA')
 st.sidebar.markdown('# Verify unseen original face with DNA')
 

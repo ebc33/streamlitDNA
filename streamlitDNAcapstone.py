@@ -3,7 +3,7 @@ def trainEval(model,xtrain,ytrain,bsize,epochs,xtest,ytest):
     historyTrain=model.fit(xtrain,ytrain,batch_size=bsize,epochs=epochs)
     historyEval=model.fit(xtrain,ytrain,batch_size=bsize,epochs=epochs,validation_data=(xtest,ytest))
 
-def modelSequenceDNA(xtrain=x_train_array,ytrain=y_train_array,xtest=x_test_array,ytest=y_test_array,bsize=44,epochs=3,inputSize=33289,sizeHL=128,activnHL='exponential',activnOP='softmax',nLayers=3,nClass=2,opt='adam',loss='sparse_categorical_crossentropy',metrics=[keras.metrics.SparseCategoricalAccuracy(name='acc')]):
+def modelSequenceDNA(xtrain=xtrain,ytrain=ytrain,xtest=xtest,ytest=ytest,bsize=44,epochs=3,inputSize=33289,sizeHL=128,activnHL='exponential',activnOP='softmax',nLayers=3,nClass=2,opt='adam',loss='sparse_categorical_crossentropy',metrics=[keras.metrics.SparseCategoricalAccuracy(name='acc')]):
     model=tf.keras.Sequential()
     model.add(tf.keras.Input(shape=inputSize,))
     for i in range(nLayers):

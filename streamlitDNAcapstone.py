@@ -47,7 +47,7 @@ def bufferDNA(dna,max=33289):
     buffDNA=[]
     #identify min-max
     dna_delta=abs(max-len(dna))
-    stopCodonBuff='taa'*dna_delta:
+    stopCodonBuff='taa'*dna_delta
     if len(dna)<max:
         buffDNA.append(dna+stopCodonBuff[:max-len(dna)]) 
     elif len(dna)==max:

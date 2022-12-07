@@ -3,8 +3,6 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 from sklearn.cluster import OPTICS
-import os
-print('os.getcwd()',os.getcwd())
 
 st.markdown('# Verify ID with DNA')
 st.sidebar.markdown('# Verify unseen original face with DNA')

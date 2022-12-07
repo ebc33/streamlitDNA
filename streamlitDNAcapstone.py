@@ -94,7 +94,7 @@ with right_column:
                 dataInputDNAup=np.array(dataTenDNAup)
                 model=modelSequenceDNA(xtrain=xtrain.txt,ytrain=ytrain.txt,xtest=xtest.txt,ytest=ytest.txt)
                 model.predict(dataInputDNAup)
-             else:
+            else:
                 print("error DNA data is not a string")
     elif chosen=="No":
         st.write("Not so sure...would you like to reenter a guess?")

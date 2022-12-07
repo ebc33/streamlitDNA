@@ -67,6 +67,8 @@ import tensorflow as tf
 from tensorflow.keras import layers
 from tensorflow import keras
 import numpy as np
+import os
+print('os.getcwd()',os.getcwd())
 
 st.markdown('# Verify ID with DNA')
 st.sidebar.markdown('# Verify unseen original face with DNA')
@@ -92,6 +94,10 @@ with right_column:
                 dataNpDNAup=np.array(dataIntDNAup)
                 dataTenDNAup=nu_tensor(dataNpDNAup)
                 dataInputDNAup=np.array(dataTenDNAup)
+                #filepath='C:\\Users\\ebc15\\MLE-9\\assignments\\Untitled Folder\\xtrain.txt'
+                #sampleXtrain=pd.read_csv(filepath)
+                #filepath='..xtrain.txt'
+                #xtrainData=pd.read_csv(filepath)
                 model=modelSequenceDNA(xtrain=xtrain.txt,ytrain=ytrain.txt,xtest=xtest.txt,ytest=ytest.txt)
                 model.predict(dataInputDNAup)
             else:

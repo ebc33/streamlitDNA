@@ -30,10 +30,10 @@ with right_column:
                 if len(xtrain_dataframed_app.iloc[:,0])==len(xtrain_dataframed.iloc[:,0])+1:
                     st.write("File has been uploaded.")
                     clusteringOptics=OPTICS(min_samples=2).fit(xtrain_dataframed_app)
-                        if clusteringOptics.labels_[-1]<=0:
-                            st.write("your bird has a non-pointy beak")
-                        elif clusteringOptics.labels_[-1]>0:
-                            st.write("your bird has a pointy beak")
+                    if clusteringOptics.labels_[-1]<=0:
+                        st.write("your bird has a non-pointy beak")
+                    elif clusteringOptics.labels_[-1]>0:
+                        st.write("your bird has a pointy beak")
                 else:
                     st.write("please re-upload file.")              
             else:

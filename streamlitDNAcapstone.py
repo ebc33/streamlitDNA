@@ -51,7 +51,6 @@ with right_column:
             st.write('reading additional bird DNA data')
             xtrain_dataframed.append(upDNA)
             st.write('appending data')
-            indicatorVar(xtrain_dataframed)
             #xtrain_dataframed_buff = bufferDNA(upDNA) #buffer ... might call this with .loc or .iloc
             #st.write('buffering DNA in processing model input')
             #xtrain_dataframed_buff_int = dnaInt(xtrain_dataframed_buff)#int
@@ -71,7 +70,7 @@ with right_column:
             #st.write('fitting DNA data on KMeans clustering')    
             #kmeans.predict(xtrain_dataframed_buff_int_np)
             #st.write('predicting based on clustering')
-            clustering=OPTICS(min_samples=5).fit(xtrain_dataframed)
+            clustering=OPTICS(min_samples=5).fit(indicatorVar(xtrain_dataframed))
             st.write('fitting model on OPTICS clustering')
             clustering.labels_
             st.write('printing OPTICS classifications')

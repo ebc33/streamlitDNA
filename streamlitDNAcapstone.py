@@ -8,11 +8,11 @@ from tensorflow.keras import layers
 from tensorflow import keras
 import numpy as np
 
-Source of data - referenced in https://www.ncbi.nlm.nih.gov/data-hub/taxonomy/57068/
+#Source of data - referenced in https://www.ncbi.nlm.nih.gov/data-hub/taxonomy/57068/
 
-paper-zhang2014/chrW.GALGA.ACACH.maf at master · gigascience/paper-zhang2014 (github.com)
+#paper-zhang2014/chrW.GALGA.ACACH.maf at master · gigascience/paper-zhang2014 (github.com)
 
-https://www.nature.com/articles/518147a
+#https://www.nature.com/articles/518147a
 
 
 #references

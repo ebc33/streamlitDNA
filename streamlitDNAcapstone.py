@@ -18,14 +18,14 @@ from sklearn.cluster import KMeans
 #references
 #https://www.ncbi.nlm.nih.gov/data-hub/taxonomy/57068/
 
-def indicatorVar(dna_file):
-    nuArray=[]
+def nu_tensor(dna_file):
+    nu_tensor=[]
     for i in dna_file:
         tmp_narray=[]
         for j in i:
-            tmp_narray.append(j)
-        nuArray.append(tmp_narray)
-    return nuArray    
+            tmp_narray.append(tf.convert_to_tensor(int(j)))
+        nu_tensor.append(tmp_narray)
+    return nu_tensor    
 
 st.markdown('# Verify ID with DNA')
 st.sidebar.markdown('# Verify unseen original face with DNA')
@@ -70,7 +70,7 @@ with right_column:
             #st.write('fitting DNA data on KMeans clustering')    
             #kmeans.predict(xtrain_dataframed_buff_int_np)
             #st.write('predicting based on clustering')
-            clustering=OPTICS(min_samples=5).fit(indicatorVar(xtrain_dataframed))
+            clustering=OPTICS(min_samples=1).fit(nu_tensor(xtrain_dataframed))
             st.write('fitting model on OPTICS clustering')
             clustering.labels_
             st.write('printing OPTICS classifications')

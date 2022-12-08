@@ -18,7 +18,54 @@ from sklearn.cluster import KMeans
 #references
 #https://www.ncbi.nlm.nih.gov/data-hub/taxonomy/57068/
 
- 
+def bufferDNA(dna):
+    buffDNA=[]
+    #identify min-max
+    pdLens=pd.Series([len(i) for i in dna])
+    dna_delta=pdLens.max()-pdLens.min()
+    stopCodonBuff='taa'*dna_delta
+    for idx,i in enumerate(dna):
+        if len(i)<pdLens.max():
+            buffDNA.append(i+stopCodonBuff[:pdLens.max()-len(i)])
+        else:
+            buffDNA.append(i)
+  #check lengths
+    len0=0
+    barray=[]
+    for idx,i in enumerate(buffDNA):
+        if len0==0:
+            len0=len(i)
+        else:
+            barray.append(len(i)==len0)
+    sameLength=0
+    for idx,i in enumerate(barray):
+        if i:
+            sameLength+=1
+    if sameLength==len(dna)-1:
+        return buffDNA
+    else:
+        return 'error'
+
+def dnaInt(dnaCo):
+    dnaVector=[]
+    for i in dnaCo:
+        dnaStr=''
+        for j in i:
+            if j=='A' or j=='a':
+                dnaStr+='1'
+            elif j=='C' or j=='c':
+                dnaStr+='2'
+            elif j=='T' or j=='t':
+                dnaStr+='3'
+            elif j=='G' or j=='g':
+                dnaStr+='4'
+            elif j=='N' or j=='n':
+                dnaStr+='0'
+            else:
+                print('error')
+        dnaVector.append(dnaStr)
+    return dnaVector
+
 st.markdown('# Verify ID with DNA')
 st.sidebar.markdown('# Verify unseen original face with DNA')
 

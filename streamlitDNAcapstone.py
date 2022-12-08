@@ -82,7 +82,7 @@ left_column,right_column=st.columns(2)
 
 with left_column:
     chosen=st.sidebar.selectbox("Please guess type of feature this DNA visualizes", ["pointy","non-pointy"])
-    st.write(f"You think owner of this DNA has a {chosen} feature.") 
+    st.write(f"DNA probably visualizesEdited a {chosen} type of feature.") 
 
 with right_column:
     chosen=st.slider("Select probability that your guess is right",0,100,10)
@@ -104,7 +104,7 @@ with right_column:
                 xtrain_dataframed_app_buff_int_np = np.array(xtrain_dataframed_app_buff_int)#np
                 xtrain_dataframed_app_buff_int_np_ten = nu_tensor(xtrain_dataframed_app_buff_int_np)#tensor
                 xtrain_dataframed_app = xtrain_dataframed.append(xtrain_dataframed_app_buff_int_np_ten)
-                loaded_model = tf.keras.models.load_model('modelg5')
+                loaded_model = tf.keras.models.load_model('saved_model.pb')
                 loaded_model.predict(xtrain_dataframed_app) 
             else:
                 print("error DNA data is not a string")

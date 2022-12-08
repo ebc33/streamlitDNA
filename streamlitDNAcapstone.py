@@ -8,6 +8,7 @@ from tensorflow import keras
 import numpy as np
 import sklearn as sklearn
 from sklearn.cluster import KMeans
+from sklearn.cluster import AffinityPropagation
 
 #Source of data - referenced in https://www.ncbi.nlm.nih.gov/data-hub/taxonomy/57068/
 
@@ -70,9 +71,13 @@ with right_column:
             #st.write('fitting DNA data on KMeans clustering')    
             #kmeans.predict(xtrain_dataframed_buff_int_np)
             #st.write('predicting based on clustering')
-            clustering=OPTICS(min_samples=1).fit(nu_tensor(xtrain_dataframed))
-            st.write('fitting model on OPTICS clustering')
-            clustering.labels_
-            st.write('printing OPTICS classifications')
+            #clustering=OPTICS(min_samples=1).fit(nu_tensor(xtrain_dataframed))
+            #st.write('fitting model on OPTICS clustering')
+            #clustering.labels_
+            #st.write('printing OPTICS classifications')
+            clusterinAP=AffinityPropagation(random_state=5)
+            st.write('fitting AffinityPropagation')
+            clusteringAP.labels_
+            st.write('printing labels on cluster')
     elif chosen=="No":
         st.write("Not so sure...would you like to reenter a guess?")

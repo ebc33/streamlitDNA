@@ -75,7 +75,7 @@ with right_column:
             #st.write('fitting model on OPTICS clustering')
             #clustering.labels_
             #st.write('printing OPTICS classifications')
-            clusterinAP=AffinityPropagation(random_state=5)
+            clusteringAP=AffinityPropagation(random_state=5)
             st.write('fitting AffinityPropagation')
             clusteringAP.labels_
             st.write('printing labels on cluster')

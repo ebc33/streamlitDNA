@@ -1,12 +1,12 @@
 #sample streamlit file
 import streamlit as st
 import pandas as pd
-import numpy as np
-#from sklearn.cluster import OPTICS
+from sklearn.cluster import OPTICS
 import tensorflow as tf
 from tensorflow.keras import layers
 from tensorflow import keras
 import numpy as np
+import sklearn as sk
 from sklearn.cluster import KMeans
 
 #Source of data - referenced in https://www.ncbi.nlm.nih.gov/data-hub/taxonomy/57068/
@@ -93,22 +93,33 @@ with right_column:
         uploaded_DNA=st.file_uploader("uploaded_file") 
         if uploaded_DNA is not None:
             if type(uploaded_DNA)==str:
-                #if len(xtrain_dataframed_app.iloc[:,0])==len(xtrain_dataframed.iloc[:,0])+1:
-                #    st.write("File has been uploaded.")
-                #else:
-                #    st.write("please re-upload file.")             
-                
                 upDNA=pd.read_csv(uploaded_DNA) 
+                print('uploaded data')
+                st.write('uploaded data')
                 xtrain_dataframed=pd.read_csv('xvar.txt')
+                st.write('reading additional bird DNA data')
                 xtrain_dataframed_app_buff = bufferDNA(xtrain_dataframed_app) #buffer
+                st.write('buffering DNA in processing model input')
                 xtrain_dataframed_app_buff_int = dnaInt(xtrain_dataframed_app_buff)#int
+                st.write('changing nucleotides to integers')
                 xtrain_dataframed_app_buff_int_np = np.array(xtrain_dataframed_app_buff_int)#np
+                st.write('going from Pandas dataframe to numeric py arrays')
                 xtrain_dataframed_app_buff_int_np_ten = nu_tensor(xtrain_dataframed_app_buff_int_np)#tensor
+                st.write('tensorizing...')
                 xtrain_dataframed_app = xtrain_dataframed.append(xtrain_dataframed_app_buff_int_np_ten)
+                st.write('appending new DNA data')
                 loaded_model = tf.keras.models.load_model('saved_model.pb')
+                st.write('loading saved model')
                 loaded_model.predict(xtrain_dataframed_app)
+                st.write('predicting feature type based on DNA input in neural network model')
                 kmeans=KMeans(n_clusters=2,random_state=0).fit(xtrain_dataframed)
+                st.write('fitting DNA data on KMeans clustering')    
                 kmeans.predict(xtrain_dataframed_app_buff_int_np)
+                st.write('predicting based on clustering')
+                clustering=OPTICS(min_samples=2).fit(dataframed_app_buff_int_np)
+                st.write('fitting model on OPTICS clustering')
+                clustering.labels_
+                st.write('printing OPTICS classifications')
             else:
                 print("error DNA data is not a string")
     elif chosen=="No":

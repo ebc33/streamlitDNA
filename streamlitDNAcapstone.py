@@ -60,7 +60,7 @@ with right_column:
             #st.write('fitting DNA data on KMeans clustering')    
             #kmeans.predict(xtrain_dataframed_buff_int_np)
             #st.write('predicting based on clustering')
-            clustering=OPTICS(min_samples=2).fit(xtrain_dataframed)
+            clustering=OPTICS(min_samples=5).fit(xtrain_dataframed)
             st.write('fitting model on OPTICS clustering')
             clustering.labels_
             st.write('printing OPTICS classifications')

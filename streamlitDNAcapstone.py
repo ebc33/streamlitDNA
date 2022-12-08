@@ -6,7 +6,7 @@ import tensorflow as tf
 from tensorflow.keras import layers
 from tensorflow import keras
 import numpy as np
-import sklearn as sk
+import sklearn as sklearn
 from sklearn.cluster import KMeans
 
 #Source of data - referenced in https://www.ncbi.nlm.nih.gov/data-hub/taxonomy/57068/
@@ -18,62 +18,6 @@ from sklearn.cluster import KMeans
 #references
 #https://www.ncbi.nlm.nih.gov/data-hub/taxonomy/57068/
 
-def bufferDNA(dna):
-    buffDNA=[]
-    #identify min-max
-    pdLens=pd.Series([len(i) for i in dna])
-    dna_delta=pdLens.max()-pdLens.min()
-    stopCodonBuff='taa'*dna_delta
-    for idx,i in enumerate(dna):
-        if len(i)<pdLens.max():
-            buffDNA.append(i+stopCodonBuff[:pdLens.max()-len(i)])
-        else:
-            buffDNA.append(i)
-  #check lengths
-    len0=0
-    barray=[]
-    for idx,i in enumerate(buffDNA):
-        if len0==0:
-            len0=len(i)
-        else:
-            barray.append(len(i)==len0)
-    sameLength=0
-    for idx,i in enumerate(barray):
-        if i:
-            sameLength+=1
-    if sameLength==len(dna)-1:
-        return buffDNA
-    else:
-        return 'error'
-
-def dnaInt(dnaCo):
-    dnaVector=[]
-    for i in dnaCo:
-        dnaStr=''
-        for j in i:
-            if j=='A' or j=='a':
-                dnaStr+='1'
-            elif j=='C' or j=='c':
-                dnaStr+='2'
-            elif j=='T' or j=='t':
-                dnaStr+='3'
-            elif j=='G' or j=='g':
-                dnaStr+='4'
-            elif j=='N' or j=='n':
-                dnaStr+='0'
-            else:
-                print('error')
-        dnaVector.append(dnaStr)
-    return dnaVector
-
-def nu_tensor(dna_file):
-    nu_tensor=[]
-    for i in dna_file:
-        tmp_narray=[]
-        for j in i:
-            tmp_narray.append(tf.convert_to_tensor(int(j)))
-        nu_tensor.append(tmp_narray)
-    return nu_tensor
  
 st.markdown('# Verify ID with DNA')
 st.sidebar.markdown('# Verify unseen original face with DNA')
@@ -97,25 +41,25 @@ with right_column:
             st.write('uploaded data')
             xtrain_dataframed=pd.read_csv('xvar.txt')
             st.write('reading additional bird DNA data')
-            xtrain_dataframed_buff = bufferDNA(xtrain_dataframed) #buffer
+            xtrain_dataframed_buff = bufferDNA(upDNA) #buffer ... might call this with .loc or .iloc
             st.write('buffering DNA in processing model input')
             xtrain_dataframed_buff_int = dnaInt(xtrain_dataframed_buff)#int
             st.write('changing nucleotides to integers')
             xtrain_dataframed_buff_int_np = np.array(xtrain_dataframed_buff_int)#np
             st.write('going from Pandas dataframe to numeric py arrays')
-            xtrain_dataframed_buff_int_np_ten = nu_tensor(xtrain_dataframed_buff_int_np)#tensor
-            st.write('tensorizing...')
-            xtrain_dataframed_app = xtrain_dataframed.append(xtrain_dataframed_buff_int_np_ten)
+            #xtrain_dataframed_buff_int_np_ten = nu_tensor(xtrain_dataframed_buff_int_np)#tensor
+            #st.write('tensorizing...')
+            xtrain_dataframed_app = xtrain_dataframed.append(xtrain_dataframed_buff_int_np)
             st.write('appending new DNA data')
-            loaded_model = tf.keras.models.load_model('https://drive.google.com/drive/folders/1wsRQkL4ecQr_ZtkQdwA7RFhh-0suDBwo?usp=share_link')
-            st.write('loading saved model')
-            loaded_model.predict(xtrain_dataframed_app)
-            st.write('predicting feature type based on DNA input in neural network model')
+            #loaded_model = tf.keras.models.load_model('https://drive.google.com/drive/folders/1wsRQkL4ecQr_ZtkQdwA7RFhh-0suDBwo?usp=share_link')
+            #st.write('loading saved model')
+            #loaded_model.predict(xtrain_dataframed_app)
+            #st.write('predicting feature type based on DNA input in neural network model')
             kmeans=KMeans(n_clusters=2,random_state=0).fit(xtrain_dataframed)
             st.write('fitting DNA data on KMeans clustering')    
             kmeans.predict(xtrain_dataframed_buff_int_np)
             st.write('predicting based on clustering')
-            clustering=OPTICS(min_samples=2).fit(dataframed_buff_int_np)
+            clustering=OPTICS(min_samples=2).fit(xtrain_dataframed_app)
             st.write('fitting model on OPTICS clustering')
             clustering.labels_
             st.write('printing OPTICS classifications')

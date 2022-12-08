@@ -4,3 +4,4 @@ sklearn
 streamlit
 tensorflow
 keras
+scikit-learn

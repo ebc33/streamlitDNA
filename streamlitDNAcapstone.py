@@ -18,6 +18,15 @@ from sklearn.cluster import KMeans
 #references
 #https://www.ncbi.nlm.nih.gov/data-hub/taxonomy/57068/
 
+def indicatorVar(dna_file):
+    nuArray=[]
+    for i in dna_file:
+        tmp_narray=[]
+        for j in i:
+            tmp_narray.append(j)
+        nuArray.append(tmp_narray)
+    return nuArray    
+
 st.markdown('# Verify ID with DNA')
 st.sidebar.markdown('# Verify unseen original face with DNA')
 
@@ -41,6 +50,8 @@ with right_column:
             xtrain_dataframed=pd.read_csv('xvar.txt')
             st.write('reading additional bird DNA data')
             xtrain_dataframed.append(upDNA)
+            st.write('appending data')
+            indicatorVar(xtrain_dataframed)
             #xtrain_dataframed_buff = bufferDNA(upDNA) #buffer ... might call this with .loc or .iloc
             #st.write('buffering DNA in processing model input')
             #xtrain_dataframed_buff_int = dnaInt(xtrain_dataframed_buff)#int

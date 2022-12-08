@@ -7,13 +7,13 @@ import tensorflow as tf
 from tensorflow.keras import layers
 from tensorflow import keras
 import numpy as np
+import sklearn.cluster import KMeans
 
 #Source of data - referenced in https://www.ncbi.nlm.nih.gov/data-hub/taxonomy/57068/
 
 #paper-zhang2014/chrW.GALGA.ACACH.maf at master · gigascience/paper-zhang2014 (github.com)
 
 #https://www.nature.com/articles/518147a
-
 
 #references
 #https://www.ncbi.nlm.nih.gov/data-hub/taxonomy/57068/
@@ -97,6 +97,7 @@ with right_column:
                 #    st.write("File has been uploaded.")
                 #else:
                 #    st.write("please re-upload file.")             
+                
                 upDNA=pd.read_csv(uploaded_DNA) 
                 xtrain_dataframed=pd.read_csv('xvar.txt')
                 xtrain_dataframed_app_buff = bufferDNA(xtrain_dataframed_app) #buffer
@@ -105,7 +106,9 @@ with right_column:
                 xtrain_dataframed_app_buff_int_np_ten = nu_tensor(xtrain_dataframed_app_buff_int_np)#tensor
                 xtrain_dataframed_app = xtrain_dataframed.append(xtrain_dataframed_app_buff_int_np_ten)
                 loaded_model = tf.keras.models.load_model('saved_model.pb')
-                loaded_model.predict(xtrain_dataframed_app) 
+                loaded_model.predict(xtrain_dataframed_app)
+                kmeans=KMeans(n_clusters=2,random_state=0).fit(xtrain_dataframed)
+                kmeans.predict(xtrain_dataframed_app_buff_int_np)
             else:
                 print("error DNA data is not a string")
     elif chosen=="No":

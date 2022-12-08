@@ -7,7 +7,7 @@ import tensorflow as tf
 from tensorflow.keras import layers
 from tensorflow import keras
 import numpy as np
-import sklearn.cluster import KMeans
+from sklearn.cluster import KMeans
 
 #Source of data - referenced in https://www.ncbi.nlm.nih.gov/data-hub/taxonomy/57068/
 

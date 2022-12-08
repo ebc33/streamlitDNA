@@ -2,7 +2,17 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-from sklearn.cluster import OPTICS
+#from sklearn.cluster import OPTICS
+Source of data - referenced in https://www.ncbi.nlm.nih.gov/data-hub/taxonomy/57068/
+
+paper-zhang2014/chrW.GALGA.ACACH.maf at master · gigascience/paper-zhang2014 (github.com)
+
+https://www.nature.com/articles/518147a
+
+
+#references
+#https://www.ncbi.nlm.nih.gov/data-hub/taxonomy/57068/
+
 
 st.markdown('# Verify ID with DNA')
 st.sidebar.markdown('# Verify unseen original face with DNA')
@@ -27,11 +37,21 @@ with right_column:
                 xtrain_dataframed_app=xtrain_dataframed.append(upDNA)
                 if len(xtrain_dataframed_app.iloc[:,0])==len(xtrain_dataframed.iloc[:,0])+1:
                     st.write("File has been uploaded.")
-                    clusteringOptics=OPTICS(min_samples=2).fit(xtrain_dataframed_app)
-                    if clusteringOptics.labels_[-1]<=0:
-                        st.write("your bird has a non-pointy beak")
-                    elif clusteringOptics.labels_[-1]>0:
-                        st.write("your bird has a pointy beak")
+                    loaded_model = tf.keras.models.load_model('modelg5')
+                    model.predict(dataInputDNAup)
+                    #with file.open(reloadedmodel) as f:
+                    #    read_data=f.read()
+                    #    model=read_data
+                        #f.closed
+                    #filepath='C:\\Users\\ebc15\\MLE-9\\assignments\\Untitled Folder\\xtrain.txt'
+                    #sampleXtrain=pd.read_csv(filepath)
+                    #filepath='..xtrain.txt'
+                    #xtrainData=pd.read_csv(filepath)
+                    #clusteringOptics=OPTICS(min_samples=2).fit(xtrain_dataframed_app)
+                    #if clusteringOptics.labels_[-1]<=0:
+                    #    st.write("your bird has a non-pointy beak")
+                    #elif clusteringOptics.labels_[-1]>0:
+                    #    st.write("your bird has a pointy beak")
                 else:
                     st.write("please re-upload file.")              
             else:

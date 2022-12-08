@@ -40,6 +40,7 @@ with right_column:
             st.write('uploaded data')
             xtrain_dataframed=pd.read_csv('xvar.txt')
             st.write('reading additional bird DNA data')
+            xtrain_dataframed.append(upDNA)
             #xtrain_dataframed_buff = bufferDNA(upDNA) #buffer ... might call this with .loc or .iloc
             #st.write('buffering DNA in processing model input')
             #xtrain_dataframed_buff_int = dnaInt(xtrain_dataframed_buff)#int
@@ -59,7 +60,7 @@ with right_column:
             #st.write('fitting DNA data on KMeans clustering')    
             #kmeans.predict(xtrain_dataframed_buff_int_np)
             #st.write('predicting based on clustering')
-            clustering=OPTICS(min_samples=2).fit(xtrain_dataframed_app)
+            clustering=OPTICS(min_samples=2).fit(xtrain_dataframed)
             st.write('fitting model on OPTICS clustering')
             clustering.labels_
             st.write('printing OPTICS classifications')

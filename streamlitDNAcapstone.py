@@ -3,6 +3,11 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 #from sklearn.cluster import OPTICS
+import tensorflow as tf
+from tensorflow.keras import layers
+from tensorflow import keras
+import numpy as np
+
 Source of data - referenced in https://www.ncbi.nlm.nih.gov/data-hub/taxonomy/57068/
 
 paper-zhang2014/chrW.GALGA.ACACH.maf at master · gigascience/paper-zhang2014 (github.com)
@@ -13,7 +18,63 @@ https://www.nature.com/articles/518147a
 #references
 #https://www.ncbi.nlm.nih.gov/data-hub/taxonomy/57068/
 
+def bufferDNA(dna):
+    buffDNA=[]
+    #identify min-max
+    pdLens=pd.Series([len(i) for i in dna])
+    dna_delta=pdLens.max()-pdLens.min()
+    stopCodonBuff='taa'*dna_delta
+    for idx,i in enumerate(dna):
+        if len(i)<pdLens.max():
+            buffDNA.append(i+stopCodonBuff[:pdLens.max()-len(i)])
+        else:
+            buffDNA.append(i)
+  #check lengths
+    len0=0
+    barray=[]
+    for idx,i in enumerate(buffDNA):
+        if len0==0:
+            len0=len(i)
+        else:
+            barray.append(len(i)==len0)
+    sameLength=0
+    for idx,i in enumerate(barray):
+        if i:
+            sameLength+=1
+    if sameLength==len(dna)-1:
+        return buffDNA
+    else:
+        return 'error'
 
+def dnaInt(dnaCo):
+    dnaVector=[]
+    for i in dnaCo:
+        dnaStr=''
+        for j in i:
+            if j=='A' or j=='a':
+                dnaStr+='1'
+            elif j=='C' or j=='c':
+                dnaStr+='2'
+            elif j=='T' or j=='t':
+                dnaStr+='3'
+            elif j=='G' or j=='g':
+                dnaStr+='4'
+            elif j=='N' or j=='n':
+                dnaStr+='0'
+            else:
+                print('error')
+        dnaVector.append(dnaStr)
+    return dnaVector
+
+def nu_tensor(dna_file):
+    nu_tensor=[]
+    for i in dna_file:
+        tmp_narray=[]
+        for j in i:
+            tmp_narray.append(tf.convert_to_tensor(int(j)))
+        nu_tensor.append(tmp_narray)
+    return nu_tensor
+ 
 st.markdown('# Verify ID with DNA')
 st.sidebar.markdown('# Verify unseen original face with DNA')
 
@@ -32,28 +93,19 @@ with right_column:
         uploaded_DNA=st.file_uploader("uploaded_file") 
         if uploaded_DNA is not None:
             if type(uploaded_DNA)==str:
-                upDNA=pd.read_csv(uploaded_DNA)
+                #if len(xtrain_dataframed_app.iloc[:,0])==len(xtrain_dataframed.iloc[:,0])+1:
+                #    st.write("File has been uploaded.")
+                #else:
+                #    st.write("please re-upload file.")             
+                upDNA=pd.read_csv(uploaded_DNA) 
                 xtrain_dataframed=pd.read_csv('xvar.txt')
-                xtrain_dataframed_app=xtrain_dataframed.append(upDNA)
-                if len(xtrain_dataframed_app.iloc[:,0])==len(xtrain_dataframed.iloc[:,0])+1:
-                    st.write("File has been uploaded.")
-                    loaded_model = tf.keras.models.load_model('modelg5')
-                    model.predict(dataInputDNAup)
-                    #with file.open(reloadedmodel) as f:
-                    #    read_data=f.read()
-                    #    model=read_data
-                        #f.closed
-                    #filepath='C:\\Users\\ebc15\\MLE-9\\assignments\\Untitled Folder\\xtrain.txt'
-                    #sampleXtrain=pd.read_csv(filepath)
-                    #filepath='..xtrain.txt'
-                    #xtrainData=pd.read_csv(filepath)
-                    #clusteringOptics=OPTICS(min_samples=2).fit(xtrain_dataframed_app)
-                    #if clusteringOptics.labels_[-1]<=0:
-                    #    st.write("your bird has a non-pointy beak")
-                    #elif clusteringOptics.labels_[-1]>0:
-                    #    st.write("your bird has a pointy beak")
-                else:
-                    st.write("please re-upload file.")              
+                xtrain_dataframed_app_buff = bufferDNA(xtrain_dataframed_app) #buffer
+                xtrain_dataframed_app_buff_int = dnaInt(xtrain_dataframed_app_buff)#int
+                xtrain_dataframed_app_buff_int_np = np.array(xtrain_dataframed_app_buff_int)#np
+                xtrain_dataframed_app_buff_int_np_ten = nu_tensor(xtrain_dataframed_app_buff_int_np)#tensor
+                xtrain_dataframed_app = xtrain_dataframed.append(xtrain_dataframed_app_buff_int_np_ten)
+                loaded_model = tf.keras.models.load_model('modelg5')
+                loaded_model.predict(xtrain_dataframed_app) 
             else:
                 print("error DNA data is not a string")
     elif chosen=="No":

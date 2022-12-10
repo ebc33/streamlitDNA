@@ -62,11 +62,11 @@ with right_column:
             #st.write('predicting feature type based on DNA input in neural network model')
             clustering=OPTICS(algorithm='ball_tree').fit(xtrain_data)
             st.write('fitting model on OPTICS clustering')
-                if clustering.labels_[-1]==0:
-                    #st.write('printing OPTICS classifications')
-                    st.write("Your bird has a pointy beak")
-                else:
-                    st.write("Your bird has a not-so-pointy beak")
+            if clustering.labels_[-1]==0:
+                #st.write('printing OPTICS classifications')
+                st.write("Your bird has a pointy beak")
+            else:
+                st.write("Your bird has a not-so-pointy beak")
             #clusteringAP=AffinityPropagation(random_state=5).fit(nu_tensor(xtrain_dataframed))
             #st.write('fitting AffinityPropagation')
             #clusteringAP.labels_

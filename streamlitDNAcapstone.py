@@ -26,7 +26,7 @@ left_column,right_column=st.columns(2)
 
 with left_column:
     chosen=st.sidebar.selectbox("Please guess type of feature this DNA visualizes", ["pointy","non-pointy"])
-    st.write(f"DNA probably visualizesEdited a {chosen} type of feature.") 
+    st.write(f"DNA probably visualizes a {chosen} type of feature.") 
 
 with right_column:
     chosen=st.slider("Select probability that your guess is right",0,100,10)

@@ -41,7 +41,7 @@ with right_column:
             st.write('uploaded data')
             #xtrain_dataframed=pd.read_csv('xvar.txt')
             #st.write('reading additional bird DNA data')
-            xtrain_data=pd.read_csv('narrayXrifleless.txt') #without rifleman bird
+            xtrain_data=pd.read_csv('dnaDataFrameRifleless10dec2022.txt') #without rifleman bird
             st.write('reading training data')
             xtrain_data.append(upDNA)
             st.write('appending data')

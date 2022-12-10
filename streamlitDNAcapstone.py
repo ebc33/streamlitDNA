@@ -7,7 +7,6 @@ from tensorflow.keras import layers
 from tensorflow import keras
 import numpy as np
 import sklearn as sklearn
-from sklearn.cluster import KMeans
 from sklearn.cluster import AffinityPropagation
 
 #Source of data - referenced in https://www.ncbi.nlm.nih.gov/data-hub/taxonomy/57068/
@@ -19,14 +18,6 @@ from sklearn.cluster import AffinityPropagation
 #references
 #https://www.ncbi.nlm.nih.gov/data-hub/taxonomy/57068/
 
-def nu_tensor(dna_file):
-    nu_tensor=[]
-    for i in dna_file:
-        tmp_narray=[]
-        for j in i:
-            tmp_narray.append(tf.convert_to_tensor(int(j)))
-        nu_tensor.append(tmp_narray)
-    return nu_tensor    
 
 st.markdown('# Verify ID with DNA')
 st.sidebar.markdown('# Verify unseen original face with DNA')
@@ -48,9 +39,11 @@ with right_column:
             upDNA=pd.read_csv(uploaded_DNA) 
             print('uploaded data')
             st.write('uploaded data')
-            xtrain_dataframed=pd.read_csv('xvar.txt')
-            st.write('reading additional bird DNA data')
-            xtrain_dataframed.append(upDNA)
+            #xtrain_dataframed=pd.read_csv('xvar.txt')
+            #st.write('reading additional bird DNA data')
+            xtrain_data=pd.read_csv('narrayX_List.txt')
+            st.write('reading training data')
+            xtrain_data.append(upDNA)
             st.write('appending data')
             #xtrain_dataframed_buff = bufferDNA(upDNA) #buffer ... might call this with .loc or .iloc
             #st.write('buffering DNA in processing model input')
@@ -67,17 +60,16 @@ with right_column:
             #loaded_model = tf.keras.models.load_model('')
             #loaded_model.predict(xtrain_dataframed_app)
             #st.write('predicting feature type based on DNA input in neural network model')
-            #kmeans=KMeans(n_clusters=2,random_state=0).fit(xtrain_dataframed) #add a way to pick clusters with inertia values
-            #st.write('fitting DNA data on KMeans clustering')    
-            #kmeans.predict(xtrain_dataframed_buff_int_np)
-            #st.write('predicting based on clustering')
-            #clustering=OPTICS(min_samples=1).fit(nu_tensor(xtrain_dataframed))
-            #st.write('fitting model on OPTICS clustering')
-            #clustering.labels_
-            #st.write('printing OPTICS classifications')
-            clusteringAP=AffinityPropagation(random_state=5).fit(nu_tensor(xtrain_dataframed))
-            st.write('fitting AffinityPropagation')
-            clusteringAP.labels_
-            st.write('printing labels on cluster')
+            clustering=OPTICS(algorithm='ball_tree').fit(xtrain_data))
+            st.write('fitting model on OPTICS clustering')
+                if clustering.labels_[-1]==0:
+                    #st.write('printing OPTICS classifications')
+                    st.write("Your bird has a pointy beak")
+                else:
+                    st.write("Your bird has a not-so-pointy beak")
+            #clusteringAP=AffinityPropagation(random_state=5).fit(nu_tensor(xtrain_dataframed))
+            #st.write('fitting AffinityPropagation')
+            #clusteringAP.labels_
+            #st.write('printing labels on cluster')
     elif chosen=="No":
         st.write("Not so sure...would you like to reenter a guess?")

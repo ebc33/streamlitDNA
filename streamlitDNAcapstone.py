@@ -60,7 +60,7 @@ with right_column:
             #loaded_model = tf.keras.models.load_model('')
             #loaded_model.predict(xtrain_dataframed_app)
             #st.write('predicting feature type based on DNA input in neural network model')
-            clustering=OPTICS(algorithm='ball_tree').fit(xtrain_data))
+            clustering=OPTICS(algorithm='ball_tree').fit(xtrain_data)
             st.write('fitting model on OPTICS clustering')
                 if clustering.labels_[-1]==0:
                     #st.write('printing OPTICS classifications')

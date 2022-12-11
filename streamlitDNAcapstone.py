@@ -18,6 +18,14 @@ from sklearn.cluster import AffinityPropagation
 #references
 #https://www.ncbi.nlm.nih.gov/data-hub/taxonomy/57068/
 
+def nu_tensor(dna_file):
+    nu_tensor=[]
+    for i in dna_file:
+        tmp_narray=[]
+        for j in i:
+            tmp_narray.append(tf.convert_to_tensor(int(j)))
+        nu_tensor.append(tmp_narray)
+    return nu_tensor
 
 st.markdown('# Verify ID with DNA')
 st.sidebar.markdown('# Verify unseen original face with DNA')
@@ -45,15 +53,16 @@ with right_column:
             st.write('reading training data')
             xtrain_data.append(upDNA)
             st.write('appending data')
-            #xtrain_dataframed_buff = bufferDNA(upDNA) #buffer ... might call this with .loc or .iloc
-            #st.write('buffering DNA in processing model input')
-            #xtrain_dataframed_buff_int = dnaInt(xtrain_dataframed_buff)#int
-            #st.write('changing nucleotides to integers')
-            #xtrain_dataframed_buff_int_np = np.array(xtrain_dataframed_buff_int)#np
-            #st.write('going from Pandas dataframe to numeric py arrays')
-            #xtrain_dataframed_buff_int_np_ten = nu_tensor(xtrain_dataframed_buff_int_np)#tensor
-            #st.write('tensorizing...')
-            #xtrain_dataframed_app = xtrain_dataframed.append(upDNA)
+            #training NN model - pending rest of model code
+            xtrain_dataframed_buff = bufferDNA(upDNA) #buffer ... might call this with .loc or .iloc
+            st.write('buffering DNA in processing model input')
+            xtrain_dataframed_buff_int = dnaInt(xtrain_dataframed_buff)#int
+            st.write('changing nucleotides to integers')
+            xtrain_dataframed_buff_int_np = np.array(xtrain_dataframed_buff_int)#np
+            st.write('going from Pandas dataframe to numeric py arrays')
+            xtrain_dataframed_buff_int_np_ten = nu_tensor(xtrain_dataframed_buff_int_np)#tensor
+            st.write('tensorizing...')
+            #xtrain_dataframed_app = xtrain_dataframed.append(upDNA)#appending twice
             #st.write('appending new DNA data')
             ##loaded_model = tf.keras.models.load_model('https://drive.google.com/drive/folders/1wsRQkL4ecQr_ZtkQdwA7RFhh-0suDBwo?usp=share_link')
             #st.write('loading saved model')

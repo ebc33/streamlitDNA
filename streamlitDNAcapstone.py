@@ -50,8 +50,12 @@ with right_column:
             st.write('uploaded data')
             #xtrain_dataframed=pd.read_csv('xvar.txt')
             #st.write('reading additional bird DNA data')
-            xtrain_data=pd.read_csv('dnaDataFrameRifleless10dec2022.txt') #without rifleman bird
-            st.write('reading training data')
+            #xtrain_data=pd.read_csv('dnaDataFrameRifleless10dec2022.txt') #without rifleman bird
+            #st.write('reading training data')
+            xtrain_data=pd.read_csv('tensorX_33000fourLRnp14Dec2022.txt') #all birds without rifleman
+            st.write('reading x training data')
+            ytrain_data=pd.read_csv('tensorY_33000fourLRnp.txt') #all birds without rifleman
+            st.write('reading y training data')
             #xtrain_data.append(upDNA)
             #st.write('appending data')
             #training NN model - pending rest of model code
@@ -84,9 +88,12 @@ with right_column:
             #st.write('printing labels on cluster')
             #SVC
             modelSVCtrain=SVC(gamma='auto',probability=True,class_weight='balanced',break_ties=True)
-            modelSVCtrain.fit(x_train_array_multiLR,y_train_array_multiLR)
-            predictSVC=modelSVCtrain.predict([narrayXSample])
-            if predictSVC[0]==1 or predictSVC[0]==2: 
+            modelSVCtrain.fit(xtrain_data,ytrain_data)
+            predictSVC=modelSVCtrain.predict([upDNA.iloc[:,0]])
+            #GradientBoostingClassifier
+            #gbc43reload=GradientBoostingClassifier(criterion='squared_error').fit(tensorX_33000lessrifleNPreload,tensorY_33000lessrifleNPreload)
+            #predictGBC43reload=gbc43reload.predict([upDNA.iloc[:,0]])
+            if predictSVC[0]<=2: 
                 st.write('Your bird has a pointy beak')
             else:
                 st.write('Your bird has a not-so-pointy beak')

@@ -8,6 +8,7 @@ from tensorflow import keras
 import numpy as np
 import sklearn as sklearn
 from sklearn.cluster import AffinityPropagation
+from sklearn.svm import SVC
 
 #Source of data - referenced in https://www.ncbi.nlm.nih.gov/data-hub/taxonomy/57068/
 
@@ -51,17 +52,17 @@ with right_column:
             #st.write('reading additional bird DNA data')
             xtrain_data=pd.read_csv('dnaDataFrameRifleless10dec2022.txt') #without rifleman bird
             st.write('reading training data')
-            xtrain_data.append(upDNA)
-            st.write('appending data')
+            #xtrain_data.append(upDNA)
+            #st.write('appending data')
             #training NN model - pending rest of model code
-            xtrain_dataframed_buff = bufferDNA(upDNA) #buffer ... might call this with .loc or .iloc
-            st.write('buffering DNA in processing model input')
-            xtrain_dataframed_buff_int = dnaInt(xtrain_dataframed_buff)#int
-            st.write('changing nucleotides to integers')
-            xtrain_dataframed_buff_int_np = np.array(xtrain_dataframed_buff_int)#np
-            st.write('going from Pandas dataframe to numeric py arrays')
-            xtrain_dataframed_buff_int_np_ten = nu_tensor(xtrain_dataframed_buff_int_np)#tensor
-            st.write('tensorizing...')
+            #xtrain_dataframed_buff = bufferDNA(upDNA) #buffer ... might call this with .loc or .iloc
+            #st.write('buffering DNA in processing model input')
+            #xtrain_dataframed_buff_int = dnaInt(xtrain_dataframed_buff)#int
+            #st.write('changing nucleotides to integers')
+            #xtrain_dataframed_buff_int_np = np.array(xtrain_dataframed_buff_int)#np
+            #st.write('going from Pandas dataframe to numeric py arrays')
+            #xtrain_dataframed_buff_int_np_ten = nu_tensor(xtrain_dataframed_buff_int_np)#tensor
+            #st.write('tensorizing...')
             #xtrain_dataframed_app = xtrain_dataframed.append(upDNA)#appending twice
             #st.write('appending new DNA data')
             ##loaded_model = tf.keras.models.load_model('https://drive.google.com/drive/folders/1wsRQkL4ecQr_ZtkQdwA7RFhh-0suDBwo?usp=share_link')
@@ -69,17 +70,25 @@ with right_column:
             #loaded_model = tf.keras.models.load_model('')
             #loaded_model.predict(xtrain_dataframed_app)
             #st.write('predicting feature type based on DNA input in neural network model')
-            clustering=OPTICS(algorithm='ball_tree').fit(xtrain_data)
-            st.write('fitting model on OPTICS clustering')
-            clustering.labels_
-            if clustering.labels_[-1]==0:
+            #clustering=OPTICS(algorithm='ball_tree').fit(xtrain_data)
+            #st.write('fitting model on OPTICS clustering')
+            #clustering.labels_
+            #if clustering.labels_[-1]==0:
                 #st.write('printing OPTICS classifications')
-                st.write("Your bird has a pointy beak")
-            else:
-                st.write("Your bird has a not-so-pointy beak")
+            #    st.write("Your bird has a pointy beak")
+            #else:
+            #    st.write("Your bird has a not-so-pointy beak")
             #clusteringAP=AffinityPropagation(random_state=5).fit(nu_tensor(xtrain_dataframed))
             #st.write('fitting AffinityPropagation')
             #clusteringAP.labels_
             #st.write('printing labels on cluster')
+            #SVC
+            modelSVCtrain=SVC(gamma='auto',probability=True,class_weight='balanced',break_ties=True)
+            modelSVCtrain.fit(x_train_array_multiLR,y_train_array_multiLR)
+            predictSVC=modelSVCtrain.predict([narrayXSample])
+            if predictSVC[0]==1 or predictSVC[0]==2: 
+                st.write('Your bird has a pointy beak')
+            else:
+                st.write('Your bird has a not-so-pointy beak')
     elif chosen=="No":
         st.write("Not so sure...would you like to reenter a guess?")

@@ -5,14 +5,14 @@ Verify ID with DNA
 
 It is now possible to verify original face via DNA with AI ! 
 
-This repo reviews DNA sequence of data with modeling code. 
+This app reviews DNA sequence of data with modeling code. 
 App classifies original shape of a facial feature. 
 Review of DNA and classification is based on neural networks and clustering.
 
 My capstone is a pilot app that analyzes bird DNA instead of human genes as initial proof that this idea is possible.
-The main goal of this app is to identify the shape of a facial feature based only on DNA. 
+A main goal of this app is to identify the shape of a facial feature based only on DNA. 
 
-Even though trends in this economy seem to change every second in a relativistic way there is real interest in value of originals as distinguished from copies - whether you are talking about provenance in art or facial features. The establishment won't let opportunistic internet surfers take over the world yet...as proof I draw your attention to the Security, Algorithms, Networks, and Data research group. This research group at University of Chicago has developed an innovative app to protect original art posted online. Glaze: Protecting Artists from Style Mimicry (uchicago.edu) To all of you reading this with a grin of recognition or even mild exasperation, skepticism, etc. at what might sound like science fiction drama I invite you to test drive my DNA app and see for yourself...cheers!
+Even though trends in this economy seem to change every minute in a relativistic way there is real interest in value of originals as distinguished from copies - whether you are talking about provenance in art or facial features. The academics in ivory tower establishments won't let opportunistic internet surfers take over the world yet...as proof I draw your attention to the Security, Algorithms, Networks, and Data research group. This research group at University of Chicago has developed an innovative app to protect original art posted online. Glaze: Protecting Artists from Style Mimicry (uchicago.edu) Though I am new to data science I have serioius credibility in experiencing modern strategies used to compete for attention - whether it is media coverage, follows, likes, etc. I won't go into the details yet if this sounds like science fiction drama I invite you to test drive my DNA app and see for yourself...cheers! And, of course, I welcome reviews of my app
 
 Reference sources
 https://www.ncbi.nlm.nih.gov/datahub/taxonomy/57068/ paper-zhang2014/chrW.GALGA.ACACH.maf at master · gigascience/paper-zhang2014 (github.com) 

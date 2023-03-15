@@ -3,13 +3,16 @@ sample of DNA visualization capstone
 
 Verify ID with DNA
 
-It is now possible to verify original face via DNA with AI ! 
+It is possible to verify original face via DNA with AI ! 
 
 This app reviews DNA sequence of data with modeling code. 
+
 App classifies original shape of a facial feature. 
+
 Review of DNA and classification is based on neural networks and clustering.
 
 My capstone is a pilot app that analyzes bird DNA instead of human genes as initial proof that this idea is possible.
+
 A main goal of this app is to identify the shape of a facial feature based only on DNA. 
 
 Originals matter!
@@ -26,3 +29,4 @@ Abzhanov A., Kuo W.P., Hartmann C., Grant B.R., Grant P.R. and Tabin C.J. The ca
 Transcription Factors of the Alx Family: Evolutionarily Conserved Regulators of Deuterostome Skeletogenesis frontiers in Genetics 23Nov2020 Vol 11 p1-15 
 https://bigthink.com/the-future/ai-can-produce-images-of-your-face-using-onlyyour-genome/ optional 
 
+future additions include regression models and accuracy metrics. also a supplementary video!
